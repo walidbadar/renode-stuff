@@ -1,0 +1,34 @@
+
+$name?="orangepi_zero--sun8i-h2-orangepi-zero"
+$elf?=$ORIGIN/uboot.elf
+$bin?=$ORIGIN/zephyr.elf
+$repl?=$ORIGIN/uboot.repl
+
+using sysbus
+mach create $name
+machine LoadPlatformDescription $repl
+
+# Enable verbose logging
+logLevel 3
+sysbus LogPeripheralAccess uart0
+
+showAnalyzer uart0
+
+set osPanicHook
+"""
+self.ErrorLog("OS Panicked")
+"""
+cpu0 AddSymbolHook "hang" $osPanicHook
+cpu0 AddSymbolHook "panic" $osPanicHook
+
+macro reset
+"""
+    sysbus LoadELF $bin
+    cpu0 PC 0x45002630
+    cpu0 EnableZephyrMode
+    cpu1 IsHalted true
+    cpu2 IsHalted true
+    cpu3 IsHalted true
+"""
+
+runMacro $reset

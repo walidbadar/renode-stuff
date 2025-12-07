@@ -1,0 +1,30 @@
+logFile $ORIGIN/hello_world-renode.log True
+
+$name?="zybo"
+$bin?=$ORIGIN/hello_world.elf
+$repl?=$ORIGIN/hello_world.repl
+
+using sysbus
+mach create $name
+
+machine LoadPlatformDescription $repl
+
+
+showAnalyzer uart1
+
+uart1 RecordToAsciinema $ORIGIN/hello_world-asciinema
+set osPanicHook
+"""
+self.ErrorLog("OS Panicked")
+"""
+cpu0 AddSymbolHook "z_fatal_error" $osPanicHook
+
+
+macro reset
+"""
+    sysbus LoadELF $bin 
+    cpu0 EnableZephyrMode
+    cpu1 IsHalted true
+"""
+
+runMacro $reset
