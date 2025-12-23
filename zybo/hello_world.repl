@@ -37,18 +37,6 @@ cpu0_timer: Timers.ARM_GenericTimer @ cpu0
     EL1VirtualTimerIRQ->gic#0x0@27
     NonSecureEL2PhysicalTimerIRQ->gic#0x0@26
 
-cpu1: CPU.ARMv7A @ sysbus
-    cpuType: "cortex-a9"
-    cpuId: 0x1
-    genericInterruptController: gic
-
-cpu1_timer: Timers.ARM_GenericTimer @ cpu1
-    frequency: 62500000
-    EL3PhysicalTimerIRQ->gic#0x1@29
-    EL1PhysicalTimerIRQ->gic#0x1@30
-    EL1VirtualTimerIRQ->gic#0x1@27
-    NonSecureEL2PhysicalTimerIRQ->gic#0x1@26
-
 slcr: Python.PythonPeripheral @ sysbus 0xf8000000
     size: 0x200
     initable: false

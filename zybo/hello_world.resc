@@ -1,7 +1,6 @@
-logFile $ORIGIN/hello_world-renode.log True
-
 $name?="zybo"
-$bin?=$ORIGIN/hello_world.elf
+$elf?=$ORIGIN/hello_world.elf
+$zelf?=$ORIGIN/zephyr.elf
 $repl?=$ORIGIN/hello_world.repl
 
 using sysbus
@@ -22,9 +21,8 @@ cpu0 AddSymbolHook "z_fatal_error" $osPanicHook
 
 macro reset
 """
-    sysbus LoadELF $bin 
+    sysbus LoadELF $zelf 
     cpu0 EnableZephyrMode
-    cpu1 IsHalted true
 """
 
 runMacro $reset
