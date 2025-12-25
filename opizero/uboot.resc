@@ -22,7 +22,11 @@ cpu0 AddSymbolHook "z_fatal_error" $osPanicHook
 macro reset
 """
     sysbus LoadELF $zelf 
+    cpu0 EnableUbootMode
     cpu0 EnableZephyrMode
+    cpu1 IsHalted true
+    cpu2 IsHalted true
+    cpu3 IsHalted true
 """
 
 runMacro $reset
