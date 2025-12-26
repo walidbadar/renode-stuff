@@ -1,7 +1,8 @@
 $name?="orangepi_zero--sun8i-h2-orangepi-zero"
 $elf?=$ORIGIN/uboot.elf
-$zelf?=$ORIGIN/zephyr.elf
-$repl?=$ORIGIN/uboot.repl
+$zelf?=$ORIGIN/zephyr-a53.elf
+$zbin?=$ORIGIN/zephyr.bin
+$repl?=$ORIGIN/opi_zero.repl
 
 using sysbus
 mach create $name

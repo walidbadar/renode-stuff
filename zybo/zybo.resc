@@ -1,7 +1,7 @@
 $name?="zybo"
 $elf?=$ORIGIN/hello_world.elf
 $zelf?=$ORIGIN/zephyr.elf
-$repl?=$ORIGIN/hello_world.repl
+$repl?=$ORIGIN/zybo.repl
 
 using sysbus
 mach create $name
